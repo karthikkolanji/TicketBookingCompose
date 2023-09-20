@@ -1,7 +1,6 @@
 package com.vmware.core.extensions
 
 import android.os.Build
-import com.meesho.base.BuildConfig
 
 inline fun nougat(block: () -> Unit) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

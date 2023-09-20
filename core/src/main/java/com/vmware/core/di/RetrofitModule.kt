@@ -1,6 +1,5 @@
 package com.vmware.core.di
 
-import com.meesho.base.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +21,7 @@ class RetrofitModule {
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl("")
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
