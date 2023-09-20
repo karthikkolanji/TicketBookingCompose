@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.serializationPlugin)
 }
 
 android {
@@ -47,10 +48,11 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)
+    implementation(libs.serialize)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
