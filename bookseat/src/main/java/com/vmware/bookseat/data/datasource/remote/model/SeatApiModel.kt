@@ -5,22 +5,29 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SeatApiModel(
-    @SerialName("available_seats")
-    val availableSeats: Int,
-    @SerialName("booked_seats")
-    val bookedSeats: Int,
-    @SerialName("event_id")
-    val eventId: String,
-    @SerialName("event_name")
-    val eventName: String,
-    @SerialName("seats")
-    val seats: List<Seat>,
-    @SerialName("show_date")
-    val showDate: String,
-    @SerialName("show_time")
-    val showTime: String,
-    @SerialName("total_seats")
-    val totalSeats: Int,
-    @SerialName("venue_name")
-    val venueName: String,
+    @SerialName("hold")
+    val hold: Boolean,
+    @SerialName("price")
+    val price: Int,
+    @SerialName("seat_category")
+    val seatCategory: CategoryApiModel,
+    @SerialName("seat_id")
+    val seatId: String,
+    @SerialName("seat_number")
+    val seatNumber: String,
+    @SerialName("status")
+    val status: StatusApiModel,
 )
+
+enum class CategoryApiModel(val category: String) {
+    NORMAL("normal"),
+    EXECUTIVE("executive"),
+    PREMIUM("premium"),
+}
+
+enum class StatusApiModel(val availability: String) {
+    AVAILABLE("available"),
+    BOOKED("booked"),
+}
+
+// https://run.mocky.io/v3/b6468260-dc25-4e95-9829-805f35ff2584
