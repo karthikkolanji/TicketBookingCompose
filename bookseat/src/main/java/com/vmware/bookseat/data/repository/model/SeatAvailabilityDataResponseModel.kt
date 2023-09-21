@@ -1,6 +1,6 @@
 package com.vmware.bookseat.data.repository.model
 
-data class SeatDataResponseModel(
+data class SeatAvailabilityDataResponseModel(
     val availableSeats: Int,
     val bookedSeats: Int,
     val eventId: String,

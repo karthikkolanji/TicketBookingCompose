@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SeatApiResponseModel(
+data class SeatAvailabilityApiResponseModel(
     @SerialName("available_seats")
     val availableSeats: Int,
     @SerialName("booked_seats")
