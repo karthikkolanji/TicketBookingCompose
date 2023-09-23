@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -53,19 +54,32 @@ fun MovieTicketView(seat: CategoriesSeatsUiModel) {
 
         Spacer(modifier = Modifier.width(60.dp))
         Column {
-            CategoryHeader("${seat.category} - ${seat.price}")
+            CategoryHeader("${seat.category} - ₹${seat.price}")
             SeatView(seat.seats)
         }
     }
 }
 
+// @Composable
+// fun SeatView(seats: List<SeatUiModel>) {
+//    LazyVerticalGrid(
+//        userScrollEnabled = true,
+//        columns = GridCells.Fixed(10),
+//        horizontalArrangement = Arrangement.spacedBy(2.dp),
+//        verticalArrangement = Arrangement.spacedBy(2.dp),
+//        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp),
+//    ) {
+//        items(items = seats) {
+//            SeatItem(seat = it)
+//        }
+//    }
+// }
+
 @Composable
 fun SeatView(seats: List<SeatUiModel>) {
-    LazyVerticalGrid(
-        userScrollEnabled = false,
-        columns = GridCells.Fixed(10),
+    LazyRow(
+        userScrollEnabled = true,
         horizontalArrangement = Arrangement.spacedBy(2.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp),
         contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp),
     ) {
         items(items = seats) {

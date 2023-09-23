@@ -26,6 +26,7 @@ data class CategoriesSeatsUiModel(
 )
 
 data class SeatUiModel(
+    val row: String,
     val hold: Boolean,
     val price: Int,
     val seatCategory: SeatCategory,

@@ -11,6 +11,7 @@ class SeatApiToDataMapper @Inject constructor(
 ) :
     ApiToDataMapper<SeatApiModel, SeatDataModel>() {
     override fun map(input: SeatApiModel) = SeatDataModel(
+        row = input.row,
         hold = input.hold,
         price = input.price,
         seatCategory = categoryApiToDataMapper.toData(input.seatCategory),

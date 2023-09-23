@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SeatApiModel(
+    @SerializedName("row")
+    val row: String,
     @SerializedName("hold")
     val hold: Boolean,
     @SerializedName("price")

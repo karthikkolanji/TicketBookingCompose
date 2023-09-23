@@ -60,6 +60,7 @@ fun SeatCategory.mapCategory() = when (this) {
 }
 
 fun SeatDomainModel.mapCategorizedSeat() = SeatUiModel(
+    row = this.row,
     hold = this.hold,
     price = this.price,
     seatCategory = this.seatCategory,

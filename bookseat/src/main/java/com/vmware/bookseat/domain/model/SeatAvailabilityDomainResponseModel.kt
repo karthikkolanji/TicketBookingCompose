@@ -12,6 +12,7 @@ data class SeatAvailabilityDomainResponseModel(
 )
 
 data class SeatDomainModel(
+    val row: String,
     val hold: Boolean,
     val price: Int,
     val seatCategory: SeatCategory,

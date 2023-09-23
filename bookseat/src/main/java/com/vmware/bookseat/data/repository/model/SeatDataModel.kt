@@ -1,6 +1,7 @@
 package com.vmware.bookseat.data.repository.model
 
 data class SeatDataModel(
+    val row: String,
     val hold: Boolean,
     val price: Int,
     val seatCategory: CategoryDataModel,

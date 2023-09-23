@@ -11,6 +11,7 @@ class SeatDataToDomainMapper @Inject constructor(
 ) :
     DataToDomainMapper<SeatDataModel, SeatDomainModel>() {
     override fun map(input: SeatDataModel) = SeatDomainModel(
+        row = input.row,
         hold = input.hold,
         price = input.price,
         seatCategory = categoryDataToDomainMapper.toDomain(input.seatCategory),
