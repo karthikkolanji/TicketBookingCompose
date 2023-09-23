@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = "https://run.mocky.io/v3"
+const val BASE_URL = "https://run.mocky.io/v3/"
 
 @Module
 @InstallIn(SingletonComponent::class)

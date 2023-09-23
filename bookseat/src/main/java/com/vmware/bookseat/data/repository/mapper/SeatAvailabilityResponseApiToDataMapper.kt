@@ -1,9 +1,8 @@
 package com.vmware.bookseat.data.repository.mapper
 
-import com.plume.common.data.contract.mapper.ApiToDataMapper
-import com.vmware.bookseat.data.datasource.remote.model.SeatApiResponseModel
 import com.vmware.bookseat.data.datasource.remote.model.SeatAvailabilityApiResponseModel
 import com.vmware.bookseat.data.repository.model.SeatAvailabilityDataResponseModel
+import com.vmware.core.mapper.ApiToDataMapper
 import javax.inject.Inject
 
 class SeatAvailabilityResponseApiToDataMapper @Inject constructor(

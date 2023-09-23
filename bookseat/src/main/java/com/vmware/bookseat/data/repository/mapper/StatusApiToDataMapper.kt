@@ -1,6 +1,6 @@
 package com.vmware.bookseat.data.repository.mapper
 
-import com.plume.common.data.contract.mapper.ApiToDataMapper
+import com.vmware.core.mapper.ApiToDataMapper
 import com.vmware.bookseat.data.datasource.remote.model.StatusApiModel
 import com.vmware.bookseat.data.datasource.remote.model.StatusApiModel.AVAILABLE
 import com.vmware.bookseat.data.datasource.remote.model.StatusApiModel.BOOKED

@@ -7,7 +7,7 @@ import java.net.UnknownHostException
 
 class ApiError {
     companion object {
-        fun resolveError(e: Exception): State.ErrorState {
+        fun resolveError(e: Exception): UiState.Error {
             var error = e
 
             when (e) {
@@ -40,7 +40,7 @@ class ApiError {
                 }
             }
 
-            return State.ErrorState(error)
+            return UiState.Error(error)
         }
     }
 }

@@ -32,11 +32,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
 
     buildFeatures {
@@ -51,9 +51,11 @@ dependencies {
     implementation(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.livedata.ktx)
     implementation(libs.google.material)
     implementation(libs.serialize)
     implementation(libs.hilt.android)
+    implementation(libs.hilt.compose.navigation)
     kapt(libs.hilt.android.compiler)
 
     implementation(platform(libs.compose.bom))

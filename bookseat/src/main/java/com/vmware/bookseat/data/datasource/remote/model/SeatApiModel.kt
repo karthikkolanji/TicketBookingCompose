@@ -1,33 +1,42 @@
 package com.vmware.bookseat.data.datasource.remote.model
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class SeatApiModel(
-    @SerialName("hold")
+    @SerializedName("hold")
     val hold: Boolean,
-    @SerialName("price")
+    @SerializedName("price")
     val price: Int,
-    @SerialName("seat_category")
+    @SerializedName("seat_category")
     val seatCategory: CategoryApiModel,
-    @SerialName("seat_id")
+    @SerializedName("seat_id")
     val seatId: String,
-    @SerialName("seat_number")
+    @SerializedName("seat_number")
     val seatNumber: String,
-    @SerialName("status")
+    @SerializedName("status")
     val status: StatusApiModel,
 )
 
-enum class CategoryApiModel(val category: String) {
-    NORMAL("normal"),
-    EXECUTIVE("executive"),
-    PREMIUM("premium"),
+enum class CategoryApiModel {
+    @SerializedName("normal")
+    NORMAL,
+
+    @SerializedName("executive")
+    EXECUTIVE,
+
+    @SerializedName("premium")
+    PREMIUM,
 }
 
-enum class StatusApiModel(val availability: String) {
-    AVAILABLE("available"),
-    BOOKED("booked"),
+enum class StatusApiModel {
+    @SerializedName("available")
+    AVAILABLE,
+
+    @SerializedName("booked")
+    BOOKED,
 }
 
 // https://run.mocky.io/v3/b6468260-dc25-4e95-9829-805f35ff2584

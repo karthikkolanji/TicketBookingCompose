@@ -1,5 +1,6 @@
 package com.vmware.bookseat.data.repository
 
+import android.util.Log
 import com.vmware.bookseat.data.datasource.remote.ApiService
 import com.vmware.bookseat.data.repository.mapper.SeatAvailabilityResponseApiToDataMapper
 import com.vmware.core.di.DispatcherProvider

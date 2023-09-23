@@ -1,8 +1,8 @@
 package com.vmware.bookseat.domain.mapper
 
-import com.plume.common.data.contract.mapper.DataToDomainMapper
 import com.vmware.bookseat.data.repository.model.SeatDataModel
 import com.vmware.bookseat.domain.model.SeatDomainModel
+import com.vmware.core.mapper.DataToDomainMapper
 import javax.inject.Inject
 
 class SeatDataToDomainMapper @Inject constructor(
