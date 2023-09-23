@@ -3,7 +3,6 @@ package com.vmware.bookseat.ui.mapper
 import com.vmware.bookseat.domain.model.SeatAvailabilityDomainResponseModel
 import com.vmware.bookseat.domain.model.SeatCategory
 import com.vmware.bookseat.domain.model.SeatDomainModel
-import com.vmware.bookseat.domain.model.SeatStatus
 import com.vmware.bookseat.ui.model.CategoriesSeatsUiModel
 import com.vmware.bookseat.ui.model.SeatAvailabilityResponseUiModel
 import com.vmware.bookseat.ui.model.SeatUiModel
@@ -32,17 +31,13 @@ fun List<SeatDomainModel>.categorize(): List<CategoriesSeatsUiModel> {
         seat.seatCategory
     }.distinct()
 
-    val price = map { seat ->
-        seat.price
-    }.distinct()
-
     val categorizedLists = mutableMapOf<SeatCategory, List<SeatDomainModel>>()
     for (category in categoryList) {
         val filteredList = filter { it.seatCategory == category }
         categorizedLists[category] = filteredList
     }
 
-    val finalList = mutableListOf<CategoriesSeatsUiModel>()
+    val categorizesSeatList = mutableListOf<CategoriesSeatsUiModel>()
     for ((category, list) in categorizedLists) {
         val temp = CategoriesSeatsUiModel(
             row = list.map {
@@ -53,28 +48,10 @@ fun List<SeatDomainModel>.categorize(): List<CategoriesSeatsUiModel> {
             price = list.map { it.price }.distinct().first(),
 
         )
-        finalList.add(temp)
+        categorizesSeatList.add(temp)
     }
-
-    return finalList
+    return categorizesSeatList
 }
-
-data class CategoriesSeatsUiModel(
-    val row: List<String>,
-    val seats: List<SeatUiModel>,
-    val category: String,
-    val price: Int,
-)
-
-data class SeatUiModel(
-    val hold: Boolean,
-    val price: Int,
-    val seatCategory: SeatCategory,
-    val seatId: String,
-    val seatNumber: String,
-    val status: SeatStatus,
-
-)
 
 fun SeatCategory.mapCategory() = when (this) {
     SeatCategory.Normal -> "Normal"
