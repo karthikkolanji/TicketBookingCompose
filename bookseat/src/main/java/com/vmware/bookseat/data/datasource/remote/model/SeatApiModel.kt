@@ -1,7 +1,6 @@
 package com.vmware.bookseat.data.datasource.remote.model
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable

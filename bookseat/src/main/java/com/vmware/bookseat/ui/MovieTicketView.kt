@@ -13,15 +13,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +37,10 @@ fun BookSeatScreen(
     categoriesSeatList: List<CategoriesSeatsUiModel>,
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 0.dp, vertical = 154.dp).fillMaxSize(),
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 0.dp, vertical = 200.dp)
+            .fillMaxSize(),
     ) {
         categoriesSeatList.forEach {
             MovieTicketView(seat = it)
@@ -60,30 +64,32 @@ fun MovieTicketView(seat: CategoriesSeatsUiModel) {
     }
 }
 
-// @Composable
-// fun SeatView(seats: List<SeatUiModel>) {
-//    LazyVerticalGrid(
-//        userScrollEnabled = true,
-//        columns = GridCells.Fixed(10),
-//        horizontalArrangement = Arrangement.spacedBy(2.dp),
-//        verticalArrangement = Arrangement.spacedBy(2.dp),
-//        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp),
-//    ) {
-//        items(items = seats) {
-//            SeatItem(seat = it)
-//        }
-//    }
-// }
+@Composable
+fun SeatView(seats: MutableMap<String, List<SeatUiModel>>) {
+    for ((row, list) in seats) {
+        LazyRow(
+            modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection()),
+            userScrollEnabled = false,
+            horizontalArrangement = Arrangement.spacedBy(2.dp),
+            contentPadding = PaddingValues(horizontal = 2.dp, vertical = 2.dp),
+        ) {
+            items(items = list) {
+                SeatItem(seat = it)
+            }
+        }
+    }
+}
 
 @Composable
-fun SeatView(seats: List<SeatUiModel>) {
-    LazyRow(
-        userScrollEnabled = true,
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp),
+fun RowView(row: List<String>) {
+    LazyColumn(
+        modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection()),
+        userScrollEnabled = false,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        contentPadding = PaddingValues(horizontal = 2.dp, vertical = 2.dp),
     ) {
-        items(items = seats) {
-            SeatItem(seat = it)
+        items(items = row) {
+            RowItem(it)
         }
     }
 }
@@ -92,7 +98,7 @@ fun SeatView(seats: List<SeatUiModel>) {
 fun SeatItem(seat: SeatUiModel) {
     Box(
         modifier = Modifier
-            .size(24.dp)
+            .size(34.dp)
             .background(Color.Gray),
         contentAlignment = Alignment.Center,
     ) {
@@ -104,23 +110,10 @@ fun SeatItem(seat: SeatUiModel) {
 }
 
 @Composable
-fun RowView(row: List<String>) {
-    LazyColumn(
-        userScrollEnabled = false,
-        verticalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp),
-    ) {
-        items(items = row) {
-            RowItem(it)
-        }
-    }
-}
-
-@Composable
 fun RowItem(row: String) {
     Box(
         modifier = Modifier
-            .size(24.dp)
+            .size(34.dp)
             .background(Color.Gray),
         contentAlignment = Alignment.Center,
     ) {

@@ -1,6 +1,5 @@
 package com.vmware.bookseat.data.repository
 
-import android.util.Log
 import com.vmware.bookseat.data.datasource.remote.ApiService
 import com.vmware.bookseat.data.repository.mapper.SeatAvailabilityResponseApiToDataMapper
 import com.vmware.core.di.DispatcherProvider
@@ -14,6 +13,7 @@ class SeatAvailabilityRepository @Inject constructor(
 ) {
 
     suspend fun get() = withContext(dispatcherProvider.io()) {
-        seatAvailabilityResponseApiToDataMapper.toData(apiService.getSeatAvailability())
+        val temp = apiService.getSeatAvailability()
+        seatAvailabilityResponseApiToDataMapper.toData(temp)
     }
 }

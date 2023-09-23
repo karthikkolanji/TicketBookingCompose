@@ -22,7 +22,7 @@ data class CategoriesSeatsUiModel(
     val row: List<String>,
     val category: String,
     val price: Int,
-    val seats: List<SeatUiModel>,
+    val seats: MutableMap<String, List<SeatUiModel>>,
 )
 
 data class SeatUiModel(

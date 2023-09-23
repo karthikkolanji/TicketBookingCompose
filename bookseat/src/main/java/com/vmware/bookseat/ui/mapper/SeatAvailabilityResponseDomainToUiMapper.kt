@@ -31,7 +31,10 @@ fun List<SeatDomainModel>.categorize(): List<CategoriesSeatsUiModel> {
         seat.seatCategory
     }.distinct()
 
+    val rowList = map { it.row }.distinct()
+
     val categorizedLists = mutableMapOf<SeatCategory, List<SeatDomainModel>>()
+
     for (category in categoryList) {
         val filteredList = filter { it.seatCategory == category }
         categorizedLists[category] = filteredList
@@ -40,10 +43,8 @@ fun List<SeatDomainModel>.categorize(): List<CategoriesSeatsUiModel> {
     val categorizesSeatList = mutableListOf<CategoriesSeatsUiModel>()
     for ((category, list) in categorizedLists) {
         val temp = CategoriesSeatsUiModel(
-            row = list.map {
-                it.seatNumber.extractRows()
-            }.distinct(),
-            seats = list.map { it.mapCategorizedSeat() },
+            row = list.map { it.row }.distinct(),
+            seats = list.categorizeSeatsByRow(),
             category = category.mapCategory(),
             price = list.map { it.price }.distinct().first(),
 
@@ -51,6 +52,17 @@ fun List<SeatDomainModel>.categorize(): List<CategoriesSeatsUiModel> {
         categorizesSeatList.add(temp)
     }
     return categorizesSeatList
+}
+
+fun List<SeatDomainModel>.categorizeSeatsByRow(): MutableMap<String, List<SeatUiModel>> {
+    val mappedUiList = map { it.mapCategorizedSeat() }
+    val rowList = mappedUiList.map { it.row }.distinct()
+    val rowedSeatLists = mutableMapOf<String, List<SeatUiModel>>()
+    for (row in rowList) {
+        val filteredList = mappedUiList.filter { it.row == row }
+        rowedSeatLists[row] = filteredList
+    }
+    return rowedSeatLists
 }
 
 fun SeatCategory.mapCategory() = when (this) {
@@ -68,5 +80,3 @@ fun SeatDomainModel.mapCategorizedSeat() = SeatUiModel(
     seatNumber = this.seatNumber,
     status = this.status,
 )
-
-fun String.extractRows() = filter { it.isLetter() }

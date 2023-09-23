@@ -4,6 +4,6 @@ import com.vmware.bookseat.data.datasource.remote.model.SeatAvailabilityApiRespo
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("8bae0967-51d5-4e36-aff5-7f42af6670a7")
+    @GET("9f64fa41-737d-43be-8f83-df6445a099f9")
     suspend fun getSeatAvailability(): SeatAvailabilityApiResponseModel
 }
