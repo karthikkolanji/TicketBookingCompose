@@ -63,6 +63,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     testImplementation(libs.junit4)
+    testImplementation(libs.truth)
     androidTestImplementation(libs.androidx.test.junit.ext)
     androidTestImplementation(libs.androidx.test.expresso)
 }
