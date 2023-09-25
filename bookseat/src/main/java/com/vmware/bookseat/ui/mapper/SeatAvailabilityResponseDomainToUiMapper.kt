@@ -3,8 +3,10 @@ package com.vmware.bookseat.ui.mapper
 import com.vmware.bookseat.domain.model.SeatAvailabilityDomainResponseModel
 import com.vmware.bookseat.domain.model.SeatCategory
 import com.vmware.bookseat.domain.model.SeatDomainModel
+import com.vmware.bookseat.domain.model.SeatStatus
 import com.vmware.bookseat.ui.model.CategoriesSeatsUiModel
 import com.vmware.bookseat.ui.model.SeatAvailabilityResponseUiModel
+import com.vmware.bookseat.ui.model.SeatStatusUiModel
 import com.vmware.bookseat.ui.model.SeatUiModel
 import com.vmware.bookseat.ui.model.VenueDetailsUiModel
 import com.vmware.core.mapper.DomainToUiMapper
@@ -78,5 +80,11 @@ fun SeatDomainModel.mapCategorizedSeat() = SeatUiModel(
     seatCategory = this.seatCategory,
     seatId = this.seatId,
     seatNumber = this.seatNumber,
-    status = this.status,
+    status = this.status.mapSeatStatus(),
 )
+
+fun SeatStatus.mapSeatStatus() = when (this) {
+    SeatStatus.Available -> SeatStatusUiModel.Available.Unselected
+
+    SeatStatus.Booked -> SeatStatusUiModel.Booked
+}

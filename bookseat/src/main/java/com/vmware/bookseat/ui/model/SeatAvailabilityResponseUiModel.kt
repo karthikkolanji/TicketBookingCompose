@@ -1,7 +1,10 @@
 package com.vmware.bookseat.ui.model
 
+import androidx.compose.ui.graphics.Color
 import com.vmware.bookseat.domain.model.SeatCategory
-import com.vmware.bookseat.domain.model.SeatStatus
+import com.vmware.bookseat.ui.theme.BookedSeat
+import com.vmware.bookseat.ui.theme.SelectedSeat
+import com.vmware.bookseat.ui.theme.UnselectedSeat
 
 data class SeatAvailabilityResponseUiModel(
     val venueDetails: VenueDetailsUiModel,
@@ -32,6 +35,13 @@ data class SeatUiModel(
     val seatCategory: SeatCategory,
     val seatId: String,
     val seatNumber: String,
-    val status: SeatStatus,
-
+    var status: SeatStatusUiModel,
 )
+
+sealed class SeatStatusUiModel(val color: Color) {
+    data object Booked : SeatStatusUiModel(BookedSeat)
+    sealed class Available(available: Color) : SeatStatusUiModel(available) {
+        data object Unselected : Available(UnselectedSeat)
+        data object Selected : Available(SelectedSeat)
+    }
+}
