@@ -5,27 +5,34 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vmware.bookseat.domain.GetSeatAvailabilityUseCase
 import com.vmware.bookseat.ui.mapper.SeatAvailabilityResponseDomainToUiMapper
+import com.vmware.bookseat.ui.model.CategoriesSeatsUiModel
+import com.vmware.bookseat.ui.model.SeatStatusUiModel
 import com.vmware.bookseat.ui.model.SeatUiModel
 import com.vmware.bookseat.ui.state.SeatAvailabilityState
+import com.vmware.core.di.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class BookSeatViewModel @Inject constructor(
     private val getSeatAvailabilityUseCase: GetSeatAvailabilityUseCase,
     private val seatAvailabilityResponseDomainToUiMapper: SeatAvailabilityResponseDomainToUiMapper,
+    private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
+    init {
+        fetchSeatAvailability()
+    }
 
     private val _seatAvailabilityState = MutableLiveData<SeatAvailabilityState>(
         SeatAvailabilityState.StateLoading,
     )
     val seatAvailabilityState = _seatAvailabilityState
 
-    fun fetchSeatAvailability() {
-        viewModelScope.launch(Dispatchers.IO) {
+    private fun fetchSeatAvailability() {
+        viewModelScope.launch(dispatcherProvider.main()) {
+            SeatAvailabilityState.StateLoading
             try {
                 val seatAvailabilityData = getSeatAvailability()
                 _seatAvailabilityState.postValue(
@@ -35,7 +42,7 @@ class BookSeatViewModel @Inject constructor(
                 )
             } catch (exception: Exception) {
                 _seatAvailabilityState.postValue(
-                    SeatAvailabilityState.StateError(exception.localizedMessage),
+                    exception.localizedMessage?.let { SeatAvailabilityState.StateError(it) },
                 )
             }
         }
@@ -47,8 +54,8 @@ class BookSeatViewModel @Inject constructor(
 
     fun updateSelectedSeats(seat: SeatUiModel) {
         val currentSeatAvailabilityData =
-            seatAvailabilityState.value as? SeatAvailabilityState.StateSuccess
-        currentSeatAvailabilityData?.let { successState ->
+            seatAvailabilityState.value as SeatAvailabilityState.StateSuccess
+        currentSeatAvailabilityData.let { successState ->
             val updatedCategoriesSeats = successState.data.categoriesSeats.map { categorySeats ->
                 val updatedSeats = categorySeats.seats.map { seatMapEntry ->
                     val seatList = seatMapEntry.value.toMutableList()
@@ -61,29 +68,17 @@ class BookSeatViewModel @Inject constructor(
                 categorySeats.copy(seats = updatedSeats.toMutableMap())
             }
             val updatedData = successState.data.copy(categoriesSeats = updatedCategoriesSeats)
-            Timber.d("updateSelectedSeats called")
-
-            Timber.d("toggleable *** $updatedData")
-            _seatAvailabilityState.value = successState.copy(data = updatedData)
+            _seatAvailabilityState.value = successState.copy(
+                data = updatedData.copy(
+                    selectedSeats = getTotalSelectedSeats(updatedData.categoriesSeats),
+                ),
+            )
         }
     }
 
-//    fun updateSelectedSeats(seat: SeatUiModel) {
-//        val currentSeatAvailabilityData =
-//            seatAvailabilityState.value as SeatAvailabilityState.StateSuccess
-//
-//        currentSeatAvailabilityData.let { successState ->
-//            val updatedCategoriesSeats = successState.data.categoriesSeats.map { categorySeats ->
-//
-//                for ((row, list) in categorySeats.seats) {
-//                    val updatedSeat = list.find { it.seatId == seat.seatId }
-//                    categorySeats.copy(seat=)
-//                }
-//            }
-//            val updatedData = successState.data.copy(categoriesSeats = updatedCategoriesSeats)
-//
-//            Timber.d("toggleable *** $updatedData")
-//            _seatAvailabilityState.value = successState.copy(data = updatedData)
-//        }
-//    }
+    private fun getTotalSelectedSeats(categoriesSeats: List<CategoriesSeatsUiModel>): List<SeatUiModel> {
+        return categoriesSeats
+            .flatMap { it.seats.values.flatten() } // Flatten the seat lists
+            .filter { it.status is SeatStatusUiModel.Available.Selected }
+    }
 }

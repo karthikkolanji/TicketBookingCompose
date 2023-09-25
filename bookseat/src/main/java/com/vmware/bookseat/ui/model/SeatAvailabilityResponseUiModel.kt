@@ -9,6 +9,7 @@ import com.vmware.bookseat.ui.theme.UnselectedSeat
 data class SeatAvailabilityResponseUiModel(
     val venueDetails: VenueDetailsUiModel,
     val categoriesSeats: List<CategoriesSeatsUiModel>,
+    val selectedSeats: List<SeatUiModel> = emptyList(),
 )
 
 data class VenueDetailsUiModel(
