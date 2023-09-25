@@ -15,7 +15,6 @@ fun SeatView(
 ) {
     for ((row, list) in seats) {
         LazyRow(
-            userScrollEnabled = true,
             horizontalArrangement = Arrangement.spacedBy(2.dp),
             contentPadding = PaddingValues(horizontal = 2.dp, vertical = 2.dp),
         ) {

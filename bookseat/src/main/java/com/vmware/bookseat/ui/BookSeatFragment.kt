@@ -23,6 +23,7 @@ fun BookSeatFragment(
 
         is StateSuccess -> {
             val seatAvailabilityData = (seatAvailabilityState.value as StateSuccess).data
+
             BookSeatScreen(seatsList = seatAvailabilityData)
         }
 

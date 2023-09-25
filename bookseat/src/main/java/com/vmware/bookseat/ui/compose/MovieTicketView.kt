@@ -16,13 +16,13 @@ fun MovieTicketView(
     seat: CategoriesSeatsUiModel,
     viewModel: BookSeatViewModel,
 ) {
-    Row {
+    Row() {
         Column {
             CategoryHeader(seatRow)
             RowView(seat.row)
         }
 
-        Spacer(modifier = Modifier.width(60.dp))
+        Spacer(modifier = Modifier.width(34.dp))
         Column {
             CategoryHeader("${seat.category} - ₹${seat.price}")
             SeatView(seat.seats) { seat ->

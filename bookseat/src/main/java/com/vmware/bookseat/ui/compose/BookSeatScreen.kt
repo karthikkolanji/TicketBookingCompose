@@ -3,7 +3,6 @@ package com.vmware.bookseat.ui.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -25,7 +24,7 @@ fun BookSeatScreen(
     seatsList: SeatAvailabilityResponseUiModel,
     viewModel: BookSeatViewModel = hiltViewModel(),
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column() {
         Row(
             modifier = Modifier
                 .padding(horizontal = 0.dp, vertical = 12.dp),
@@ -43,15 +42,12 @@ fun BookSeatScreen(
                 )
             }
         }
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 0.dp, vertical = 24.dp),
-        ) {
+        Column() {
             seatsList.categoriesSeats.forEach {
                 MovieTicketView(seat = it, viewModel)
             }
         }
-
+        Spacer(modifier = Modifier.height(12.dp))
         PaymentButton(
             label = "$pay ${seatsList.selectedSeats.map { it.price }.sum()}",
             seatCount = seatsList.selectedSeats.count(),
@@ -60,27 +56,3 @@ fun BookSeatScreen(
         )
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

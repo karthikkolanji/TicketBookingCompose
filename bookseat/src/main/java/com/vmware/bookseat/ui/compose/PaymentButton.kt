@@ -11,13 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+const val MINIMUM_SEAT_SELECTION = 2
+
 @Composable
 fun PaymentButton(
     label: String,
     seatCount: Int,
     onClick: () -> Unit,
 ) {
-    val enableButton = seatCount >= 2
+    val enableButton = seatCount >= MINIMUM_SEAT_SELECTION
     Button(
         onClick = onClick,
         modifier = Modifier

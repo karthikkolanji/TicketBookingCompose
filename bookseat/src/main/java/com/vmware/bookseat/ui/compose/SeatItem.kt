@@ -12,6 +12,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vmware.bookseat.ui.model.SeatStatusUiModel
+import com.vmware.bookseat.ui.model.SeatStatusUiModel.Available.Selected
+import com.vmware.bookseat.ui.model.SeatStatusUiModel.Available.Unselected
 import com.vmware.bookseat.ui.model.SeatUiModel
 
 @Composable
@@ -26,13 +28,7 @@ fun SeatItem(
                 value = true,
                 onValueChange = {
                     if (seat.status !is SeatStatusUiModel.Booked) {
-                        val changedStatus =
-                            if (seat.status is SeatStatusUiModel.Available.Selected) {
-                                SeatStatusUiModel.Available.Unselected
-                            } else {
-                                SeatStatusUiModel.Available.Selected
-                            }
-                        val updatedSeat = seat.copy(status = changedStatus)
+                        val updatedSeat = seat.copy(status = seat.status.toggleStatus())
                         onSeatClicked(updatedSeat)
                     }
                 },
@@ -45,4 +41,10 @@ fun SeatItem(
             style = TextStyle(fontSize = 10.sp),
         )
     }
+}
+
+fun SeatStatusUiModel.toggleStatus() = if (this is Selected) {
+    Unselected
+} else {
+    Selected
 }
