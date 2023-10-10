@@ -1,5 +1,5 @@
 # TicketBooking App
-An simple app to deposit and with money.
+An simple app to book movie seat.
 
 
 
