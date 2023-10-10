@@ -53,13 +53,6 @@ https://github.com/karthikkolanji/TicketBookingCompose/assets/8638991/93a413de-b
 - Any new feature developed mush a new feature module. This helps isn separation of concern, increase build time and dynamic feature delivery
 
 
-## Explanation of module structure
-- DI (ContextModule, DispatcherProvider, GlideModule, GsonModule, OkHttpClientModule, RetrofitModule)
-- Extensions
-- Utils
-
-
-
 ## Further improvements planned 
 - [Interface] - Add Interface for all the layers, so that communication between layers happens via Interface and not concrete class.
 - [Test case] - Add test case for ViewModel & Usecase
