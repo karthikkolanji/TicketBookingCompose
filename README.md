@@ -1,5 +1,5 @@
 # TicketBooking App
-An simple app to deposit and with money.
+An simple app to book movie seat.
 
 
 
@@ -27,6 +27,12 @@ An simple app to deposit and with money.
 ## 📱 Download Demo on Android
 Download the [APK file from here](https://test_link?raw=true) on your Android phone and enjoy the Demo App :)
 
+
+
+https://github.com/karthikkolanji/TicketBookingCompose/assets/8638991/93a413de-b654-4eec-b611-43a6d4fb9ed3
+
+
+
 ## Built With 🛠
 - [Version Catalogs](https://developer.android.com/build/migrate-to-catalogs) -  helps to main version across all modules feature modules in single place
 - [MVVM Architecture](https://developer.android.com/topic/architecture) - Official architecture for Android development.
@@ -45,13 +51,6 @@ Download the [APK file from here](https://test_link?raw=true) on your Android ph
 ## Assumptions made while developing code
 - Setting arrangements is fetched from server
 - Any new feature developed mush a new feature module. This helps isn separation of concern, increase build time and dynamic feature delivery
-
-
-## Explanation of module structure
-- DI (ContextModule, DispatcherProvider, GlideModule, GsonModule, OkHttpClientModule, RetrofitModule)
-- Extensions
-- Utils
-
 
 
 ## Further improvements planned 
